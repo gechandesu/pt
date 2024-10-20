@@ -11,13 +11,13 @@ _pt_completions()
             ;;
         -l|-label)
             if [[ ${COMP_WORDS[*]} =~ start ]]; then
-                COMPREPLY+=($(compgen -W "$(./pt labels)" -- "$cur"))
+                COMPREPLY+=($(compgen -W "$(pt labels)" -- "$cur"))
             fi
             ;;
         *)
-            local words=($(./pt ls -o brief) start stop signal)
+            local words=($(pt ls -o brief) start stop signal)
             if [[ ${words[*]} =~ $prev ]]; then
-                COMPREPLY+=($(compgen -W "$(./pt ls -o brief)" -- "$cur"))
+                COMPREPLY+=($(compgen -W "$(pt ls -o brief)" -- "$cur"))
             fi
             local commands='start stop ls ps help version signal labels'
             local invoked=()

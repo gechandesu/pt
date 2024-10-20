@@ -6,7 +6,7 @@ dev:
 	v -o pt src/
 
 prod:
-	v -prod -cc gcc -cflags -static -o pt src/ \
+	v -prod -cc gcc -cflags '-static -s' -o pt src/ \
 		-d pt_version=$(PT_VERSION) \
 		-d pt_piddir=pt \
 		-d pt_max_recursion_depth=10 \

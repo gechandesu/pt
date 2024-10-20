@@ -19,7 +19,7 @@ fn (em EntryManager) labels() []string {
 	for _, val in em.config.entries {
 		labels << val.labels
 	}
-	return arrays.uniq(labels)
+	return arrays.uniq(labels.sorted())
 }
 
 fn (em EntryManager) by_labels(labels []string) []Entry {

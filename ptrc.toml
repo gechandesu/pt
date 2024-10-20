@@ -1,0 +1,39 @@
+# Runtime directory. You shouldn't set rundir without a good reason. Omit this
+# parameter if everything works fine automatically.
+# rundir = '/run/user/1000'
+
+# You can include another config files using path glob. This is suitable for
+# splitting configuration into separate files. All configs will recursively
+# loaded. Max recursion depth is 10. pt will warn if some files aren't loaded.
+# You need to recompile pt to change max_recursion_depth.
+include = '~/.config/pt.d/*.toml'
+
+# The command entry defenition. There 'sleep' is an entry name. TOML syntax
+# allows you to use quoting for non-letter names e.g. [entry."hello@world"]
+# All entry parameters described below.
+[entry.sleep]
+# PID file. You should not to set pidfile is most cases. Depends on rundir.
+# Filename pattern is `{rundir}/{piddir}/{entry.name}.pid`. pidddir is always
+# 'pt'.
+# pidfile = '/run/user/1000/pt/sleep.pid'
+
+# Working directory. If the process should be executed in a specific directory
+# you can specify it here. If not specified, the current working directory is
+# used.
+workdir = '.'
+
+# Labels do not affect the operation of the process in any way, but can be used
+# to group commands and run them with `pt start -l label1 -l label2`.
+labels = ['example']
+
+# exec is array of strings with executable and arguments. Describing a command
+# using this syntax may seem awkward, but it allows you to clearly and
+# unambiguously define arguments that may include spaces and other special
+# characters.
+exec = ['/usr/bin/sleep', '100']
+
+# You can pass environment variables to a process by declaring them as map.
+env = { PATH = '/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/bin' }
+
+# Description. Leave a note explaining what this command is for.
+description = 'Just sleep'

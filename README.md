@@ -17,15 +17,21 @@ Run and manage background processes without daemon or root privileges. `pt` is a
 
 ## Install
 
+### Prebuilt binary
+
+Look for statically linked binaries on the [releases page](https://github.com/gechandesu/pt/releases).
+
+### Build from source
+
 First install [V compiler](https://github.com/vlang/v).
 
-Clone this repo and do:
+Then do:
 
 ```
+git clone https://github.com/gechandesu/pt.git
 cd pt
 make
-install -Dm0755 pt $HOME/.local/bin/pt
-install -Dm0644 completion.bash ${XDG_DATA_HOME:-$HOME/.local/share}/bash-completion/completions/pt
+make install
 ```
 
 Next step is configuration.
@@ -35,3 +41,40 @@ Next step is configuration.
 Default configuration file is `~/.ptrc`. This is [TOML](https://toml.io) format file.
 
 See full configuration example with comments in [ptrc.toml](ptrc.toml).
+
+## Usage
+
+For example run SOCKS5 proxy over SSH. For this example to work, your computer must have ~/.ssh/config configured and the remote server must also have your SSH key. The ~/.ptrc content:
+
+```toml
+# vim: ft=toml
+[entry.ssh-tunnel]
+description = 'SSH tunnel to %server%'
+labels = ['ssh', 'pl']
+exec = [
+    '/usr/bin/ssh',
+    '-NT',
+    '-oServerAliveInterval=60',
+    '-oExitOnForwardFailure=yes',
+    '-D',
+    '127.0.0.1:1080',
+    '192.168.0.1', # server address or hostname here
+]
+```
+
+Start process:
+```
+$ pt start ssh-tunnel
+```
+
+Show running processes:
+```
+$ pt ps
+```
+
+Stop `ssh-tunnel`:
+```
+$ pt stop ssh-tunnel
+# OR send signal explicitly
+$ pt signal TERM ssh-tunnel
+```

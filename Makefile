@@ -4,7 +4,7 @@ dev:
 	v -o pt src/
 
 prod:
-	v -prod -cc gcc -cflags '-static -s' -o pt src/ \
+	v -prod -skip-unused -cc gcc -cflags '-static -s' -o pt src/ \
 		-d pt_version=$$(git describe --tags) \
 		-d pt_piddir=pt \
 		-d pt_max_recursion_depth=10 \
